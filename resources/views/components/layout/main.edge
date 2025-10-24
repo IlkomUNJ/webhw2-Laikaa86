@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{ title || "ass document" }} </title>
+    <link rel="icon" href="./placeholder" type="image/png">
+    
+    @vite(['resources/css/app.css',
+            'resources/js/app.js']) // kl misal km ada file css/js lagi yg mau km tambahin kesini pkae format kyk begini jg
+
+    @if ($slots.meta)
+        {{{ await $slots.meta() }}}
+    @endif
+
+</head>
+
+<body>
+    @include('partials/header')
+
+    {{{ await $slots.main()}}}
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title ?? 'Anshelna Dealer' }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  @!section('styles')
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">Anshelna Dealer</div>
+    <button class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/cars">Cars</a></li>
+      <li><a href="/cart">Cart</a></li>
+      <li><a href="/checkout">Checkout</a></li>
+      <li><a href="/infobuy">Info Buy</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    @!section('content')
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Anshelna Dealer. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+      document.querySelector('.hamburger').classList.toggle('active');
+    }
+  </script>
+  @!section('scripts')
+</body>
+</html>

@@ -1,0 +1,114 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #111;
+  color: #fff;
+  min-height: 100vh;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/0/0a/2015_Koenigsegg_Agera_N_%2819886243212%29.jpg') no-repeat center center/cover;
+  animation: bgZoom 20s ease-in-out infinite alternate;
+}
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  background: #1c1c1c;
+  padding: 15px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideDown 1s ease forwards;
+}
+
+.navbar .logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.navbar .logo span {
+  color: #ff3b3b;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+  color: #ff3b3b;
+}
+
+/* Container Info */
+.infobuy {
+  max-width: 700px;
+  margin: 120px auto;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 59, 59, 0.4);
+  text-align: center;
+  animation: fadeIn 2s ease forwards;
+}
+
+.infobuy h1 {
+  font-size: 2rem;
+  color: #ff3b3b;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.infobuy p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  color: #f1f1f1;
+}
+
+.infobuy strong {
+  color: #ff3b3b;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bgZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}

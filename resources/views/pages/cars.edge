@@ -1,0 +1,1120 @@
+@component('components/base')
+  @section('head')
+    <style>
+      .car-card {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      
+      .car-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  @end
+
+  @section('content')
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold mb-2">Luxury Car Collection</h1>
+      <p class="text-gray-600">Explore our exclusive selection of the world's finest automobiles</p>
+    </div>
+
+    <div class="container mx-auto px-4">
+      <div id="car-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Cars will be loaded dynamically via JavaScript -->
+      </div>
+    </div>
+  @end
+
+  @section('scripts')
+    <script type="module">
+      // Sample car data
+      const carData = [
+        {
+          name: 'Mercedes-Benz S-Class',
+          price: '$95,000',
+          image: 'https://example.com/s-class.jpg',
+          description: 'Luxury sedan with cutting-edge technology'
+        },
+        {
+          name: 'BMW 7 Series',
+          price: '$87,000',
+          image: 'https://example.com/7-series.jpg',
+          description: 'Executive comfort meets driving pleasure'
+        },
+        {
+          name: 'Audi A8',
+          price: '$89,000',
+          image: 'https://example.com/a8.jpg',
+          description: 'Premium luxury with quattro all-wheel drive'
+        }
+      ];
+      
+      const grid = document.getElementById('car-grid');
+      
+      carData.forEach(car => {
+        const card = document.createElement('div');
+        card.className = 'car-card bg-white rounded-lg shadow-md overflow-hidden';
+        
+        card.innerHTML = `
+          <div class="aspect-w-16 aspect-h-9 bg-gray-200">
+            <img 
+              src="${car.image}" 
+              alt="${car.name}"
+              class="object-cover w-full h-full"
+              onerror="this.src='https://via.placeholder.com/400x300?text=Car+Image'"
+            >
+          </div>
+          <div class="p-6">
+            <h2 class="text-xl font-semibold mb-2">${car.name}</h2>
+            <p class="text-gray-600 mb-4">${car.description}</p>
+            <div class="flex justify-between items-center">
+              <span class="text-2xl font-bold text-blue-600">${car.price}</span>
+              <button 
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="alert('Contact sales for more information')"
+              >
+                Details
+              </button>
+            </div>
+          </div>
+        `;
+        
+        grid.appendChild(card);
+      });
+
+      // Add fade-in animation
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      });
+
+      document.querySelectorAll('.car-card').forEach((card) => {
+        observer.observe(card);
+      });
+    </script>
+  @end
+@end
+        <img src="${car.image}" alt="${car.name}">
+      </div>
+      <div class="car-info">
+        <span class="brand">${car.brand}</span>
+        <h3>${car.name}</h3>
+        <div class="specs">
+          <p><strong>Engine:</strong> ${car.specs.Engine}</p>
+          <p><strong>Power:</strong> ${car.specs.Power}</p>
+        </div>
+        <p class="price">$${car.price.toLocaleString()}</p>
+        <button class="add-to-cart" onclick="addToCart('${car.name}', ${car.price}, '${car.image}')">
+          Add to Cart
+        </button>
+      </div>
+    `;
+    
+    grid.appendChild(card);
+  });
+  
+  window.addToCart = (name, price, image) => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.push({ name, price, imgUrl: image });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Show notification
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = `${name} added to cart!`;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
+  };
+</script>
+@end
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #fff, var(--primary-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cars-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hot-offer {
+            background: linear-gradient(135deg, var(--secondary-color), #4a4a4a);
+            color: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hot-offer::before {
+            content: "LIMITED TIME";
+            position: absolute;
+            top: 10px;
+            right: -35px;
+            background: #ff4444;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .hot-offer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hot-offer img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .hot-offer-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+
+        .discount-price {
+            font-size: 2rem;
+            color: #ff4444;
+        }
+
+        .category-section {
+            margin: 2rem 0;
+        }
+
+        .category-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+            border-bottom: 3px solid #ff4444;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .car-card h3 {
+            padding: 1rem;
+            margin: 0;
+            font-size: 1.2rem;
+            color: #1a1a1a;
+        }
+
+        .car-card .price {
+            padding: 0 1rem;
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+
+        .specs-preview {
+            padding: 0.5rem 1rem;
+            background: #f8f8f8;
+            font-size: 0.9rem;
+        }
+
+        .specs-preview p {
+            margin: 0.5rem 0;
+        }
+
+        .car-actions {
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .learn-more-btn, .customize-btn {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .learn-more-btn {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .customize-btn {
+            background: #ff4444;
+            color: white;
+        }
+
+        .learn-more-btn:hover {
+            background: #333;
+        }
+
+        .customize-btn:hover {
+            background: #ff6666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #1a1a1a;
+        }
+
+        .close:hover {
+            color: #ff4444;
+        }
+
+        #specsList {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        #specsList li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        #customizeContent {
+            margin-top: 2rem;
+        }
+
+        .option-group {
+            margin: 2rem 0;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: #ff4444;
+            transform: scale(1.1);
+        }
+
+        .customize-preview {
+            background: #f8f8f8;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .customize-preview img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .customize-preview img:hover {
+            transform: scale(1.02);
+        }
+
+        #configSummary {
+            white-space: pre-line;
+            font-family: 'Poppins', monospace;
+            padding: 1rem;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .interior-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .interior-btn {
+            padding: 0.8rem;
+            border: 2px solid var(--secondary-color);
+            background: white;
+            color: var(--secondary-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interior-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .interior-btn.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .package-options {
+            display: grid;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .package-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .package-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .color-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .color-option.active {
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .submit-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 2rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .submit-btn:hover {
+            background: #ff6666;
+        }
+
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            white-space: pre-line;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .buy-btn, .show-details, .customize-btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .buy-btn {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .show-details {
+            background: white;
+            color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+        }
+
+        .customize-btn {
+            background: #2c5282;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .customize-preview {
+            margin-top: 2rem;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .customize-preview img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .option-group {
+            margin: 1.5rem 0;
+        }
+
+        .color-option {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .color-option.active {
+            border-color: #1a1a1a;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .filters {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #1a1a1a;
+            background: white;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background: #1a1a1a;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="cars-container">
+        <div class="hot-offer">
+            <div class="hot-offer-content">
+                <img src="https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b" alt="F8 Tributo">
+                <div class="hot-offer-details">
+                    <h2>Ferrari F8 Tributo</h2>
+                    <p>Experience the pinnacle of automotive engineering. Only 1 units available.</p>
+                    <div class="price-section">
+                        <span class="original-price">$1,500,000</span>
+                        <span class="discount-price">$1,099,999</span>
+                    </div>
+                    <p>Offer ends in: <span id="countdown">48:00:00</span></p>
+                    <button class="buy-btn" onclick="addToCart('Ferrari F8 Tributo', 1299999)">Reserve Now</button>
+                </div>
+            </div>
+        </div>
+
+        <h1>Our Luxury Collection</h1>
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">Available Cars</button>
+        </div>
+
+        <div class="car-grid">
+            <!-- SUVs -->
+            <div class="car-card" data-category="suv">
+                <img src="https://images.unsplash.com/photo-1563720360172-67b8f3dce741" alt="Range Rover Evoque">
+                <div class="car-info">
+                    <span class="category-label">SUV</span>
+                    <h3>Range Rover Evoque</h3>
+                    <p class="price">Starting at $83,000</p>
+                    <div class="button-group">
+                        <button class="buy-btn"> <a href="infobuy.html">Buy Now</a></div></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card" data-category="Sports">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8" alt="Mercedes GTR Series">
+                <div class="car-info">
+                    <span class="category-label">Sports</span>
+                    <h3>Mercedes GTR Series</h3>
+                    <p class="price">Starting at $111,100</p>
+                    <div class="button-group">
+                        <button class="buy-btn"> <a href="infobuy.html">Buy Now</a></div></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card" data-category="Sedan">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" alt="Porsche Panamera">
+                <div class="car-info">
+                    <span class="category-label">Sedan</span>
+                    <h3>Porsche Panamera</h3>
+                    <p class="price">Starting at $106,100</p>
+                    <div class="button-group">
+                        <button class="buy-btn"> <a href="infobuy.html">Buy Now</a></div></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Countdown timer for hot offer
+        function updateCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            if (!countdownElement) return;
+            
+            let time = localStorage.getItem('hotOfferCountdown') || '172800'; // 48 hours in seconds
+            time = parseInt(time);
+            
+            if (time <= 0) {
+                countdownElement.textContent = 'Offer Expired';
+                return;
+            }
+            
+            const hours = Math.floor(time / 3600);
+            const minutes = Math.floor((time % 3600) / 60);
+            const seconds = time % 60;
+            
+            countdownElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
+            time--;
+            localStorage.setItem('hotOfferCountdown', time.toString());
+            setTimeout(updateCountdown, 1000);
+        }
+        
+        // Start countdown
+        updateCountdown();
+        
+        // Function to display cars by category
+        function displayCarsByCategory() {
+            const categories = ['suv', 'sedan', 'sports',];
+            
+            categories.forEach(category => {
+                const grid = document.getElementById(`${category}Grid`);
+                if (!grid) return; // Skip if grid doesn't exist
+                
+                // Clear existing content
+                grid.innerHTML = '';
+                
+                const cars = Object.entries(carData).filter(([_, car]) => car.category === category);
+                
+                cars.forEach(([id, car]) => {
+                    const card = document.createElement('div');
+                    card.className = 'car-card';
+                    card.setAttribute('data-category', car.category);
+                    card.setAttribute('data-name', car.name);
+                    
+                    card.innerHTML = `
+                        <img src="${car.image}" alt="${car.name}" onerror="this.src='https://images.unsplash.com/photo-1550355291-bbee04a92027'">
+                        <h3>${car.name}</h3>
+                        <p class="price">$${car.price.toLocaleString()}</p>
+                        <div class="specs-preview">
+                            <p><strong>Engine:</strong> ${car.specs.Engine}</p>
+                            <p><strong>Power:</strong> ${car.specs.Power}</p>
+                            <p><strong>0-60:</strong> ${car.specs["0-60 mph"]}</p>
+                        </div>
+                        <div class="car-actions">
+                            <button onclick="showSpecs('${id}')" class="learn-more-btn">Learn More</button>
+                            <button onclick="showCustomize('${id}')" class="customize-btn">Customize & Order</button>
+                        </div>
+                    `;
+                    
+                    grid.appendChild(card);
+                });
+            });
+        }
+
+        // Initialize grids when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            displayCarsByCategory();
+        });
+
+        let cart = [];
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const carCards = document.querySelectorAll('.car-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const category = btn.getAttribute('data-category');
+                
+                carCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        function showSpecs(carId) {
+            const modal = document.getElementById('specsModal');
+            const car = carData[carId];
+            
+            document.getElementById('specsTitle').textContent = car.name + ' Specifications';
+            const list = document.getElementById('specsList');
+            list.innerHTML = '';
+            
+            for (const [key, value] of Object.entries(car.specs)) {
+                list.innerHTML += `<li><strong>${key}:</strong> ${value}</li>`;
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function showCustomize(carId) {
+            const modal = document.getElementById('customizeModal');
+            const car = carData[carId];
+            
+            document.getElementById('customizeTitle').textContent = 'Customize ' + car.name;
+            const content = document.getElementById('customizeContent');
+            
+            content.innerHTML = `
+                <h3>Exterior Color</h3>
+                <select id="colorSelect">
+                    ${car.colors.map(color => `<option>${color}</option>`).join('')}
+                </select>
+                
+                <h3>Interior</h3>
+                <select id="interiorSelect">
+                    ${car.interiors.map(interior => `<option>${interior}</option>`).join('')}
+                </select>
+                
+                <h3>Optional Packages</h3>
+                ${car.packages.map(pkg => `
+                    <div>
+                        <input type="checkbox" id="${pkg.replace(/\s+/g, '')}">
+                        <label for="${pkg.replace(/\s+/g, '')}">${pkg}</label>
+                    </div>
+                `).join('')}
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function showCustomize(carId) {
+            const modal = document.getElementById('customizeModal');
+            const car = carData[carId];
+            
+            if (!car.colors || !car.interiors || !car.packages) {
+                alert('Customization options not available for this model');
+                return;
+            }
+            
+            document.getElementById('customizeTitle').textContent = 'Customize ' + car.name;
+            const content = document.getElementById('customizeContent');
+            
+            content.innerHTML = `
+                <div class="customize-preview">
+                    <img src="${car.image}" alt="${car.name}" id="previewImage" 
+                         onerror="this.src='https://images.unsplash.com/photo-1550355291-bbee04a92027'">
+                    <h3>Selected Configuration</h3>
+                    <p id="configSummary"></p>
+                </div>
+
+                <div class="option-group">
+                    <h3>Exterior Color</h3>
+                    <div class="color-options">
+                        ${car.colors.map(color => `
+                            <div class="color-option" 
+                                style="background-color: ${color.toLowerCase().replace(/ /g, '')}" 
+                                data-color="${color}"
+                                title="${color}"
+                                onclick="updateConfig('color', '${color}')">
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="option-group">
+                    <h3>Interior</h3>
+                    <div class="interior-options">
+                        ${car.interiors.map(interior => `
+                            <button class="interior-btn${currentConfig.interior === interior ? ' active' : ''}" 
+                                    onclick="updateConfig('interior', '${interior}')">${interior}</button>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="option-group">
+                    <h3>Optional Packages</h3>
+                    <div class="package-options">
+                        ${car.packages.map(pkg => `
+                            <div class="package-option">
+                                <input type="checkbox" id="${pkg.replace(/ /g, '')}" 
+                                       onchange="updateConfig('package', '${pkg}')"
+                                       ${currentConfig.packages.includes(pkg) ? 'checked' : ''}>
+                                <label for="${pkg.replace(/ /g, '')}">${pkg}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="addToCart('${car.name}', ${car.price}, getCurrentConfig(), '${car.image}')">
+                    Add to Cart - $${car.price.toLocaleString()}
+                </button>
+            `;
+            
+            modal.style.display = 'flex';
+            updateConfig();
+        }
+
+        let currentConfig = {
+            color: '',
+            interior: '',
+            packages: []
+        };
+
+        function updateConfig(type, value) {
+            if (type && value) {
+                if (type === 'package') {
+                    if (currentConfig.packages.includes(value)) {
+                        currentConfig.packages = currentConfig.packages.filter(p => p !== value);
+                    } else {
+                        currentConfig.packages.push(value);
+                    }
+                } else {
+                    currentConfig[type] = value;
+                }
+            }
+
+            // Update UI
+            document.getElementById('configSummary').textContent = `
+                Color: ${currentConfig.color || 'Not selected'}
+                Interior: ${currentConfig.interior || 'Not selected'}
+                Packages: ${currentConfig.packages.length ? currentConfig.packages.join(', ') : 'None'}
+            `;
+
+            // Update active states
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.color === currentConfig.color);
+            });
+        }
+
+        function getCurrentConfig() {
+            return currentConfig;
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            if (modalId === 'customizeModal') {
+                currentConfig = {
+                    color: '',
+                    interior: '',
+                    packages: []
+                };
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Trigger reflow for animation
+            notification.offsetHeight;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        function addToCart(name, price, config = null, imgUrl = null) {
+            const item = {
+                name,
+                price,
+                config,
+                imgUrl: imgUrl || document.querySelector(`[data-name="${name}"]`)?.querySelector('img')?.src || 'https://images.unsplash.com/photo-1550355291-bbee04a92027'
+            };
+            
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            const configText = config ? 
+                `\nColor: ${config.color}\nInterior: ${config.interior}\nPackages: ${config.packages.join(', ')}` :
+                '';
+                
+            showNotification(`${name} added to cart!${configText}`);
+            closeModal('customizeModal');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Initialize cart from localStorage
+        try {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+        } catch (e) {
+            console.error('Error loading cart:', e);
+            cart = [];
+        }
+
+        // Initialize car grids when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            displayCarsByCategory();
+        });
+    </script>
+    
+    <!-- Specifications modal -->
+    <div id="specsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('specsModal')">&times;</span>
+            <h2 id="specsTitle"></h2>
+            <ul id="specsList"></ul>
+        </div>
+    </div>
+
+    <!-- Customization modal -->
+    <div id="customizeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('customizeModal')">&times;</span>
+            <h2 id="customizeTitle"></h2>
+            <div id="customizeContent"></div>
+        </div>
+    </div>
+@endsection

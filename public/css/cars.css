@@ -1,0 +1,173 @@
+:root {
+  --primary-color: #2ecc71;
+  --secondary-color: #009b77;
+  --dark-color: #111111;
+  --white-color: #ffffff;
+  --border-radius: 8px;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+.cars-container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.hot-offer {
+  background: linear-gradient(135deg, var(--dark-color), #333);
+  color: var(--white-color);
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: var(--border-radius);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
+
+.hot-offer::before {
+  content: "LIMITED TIME";
+  position: absolute;
+  top: 10px;
+  right: -35px;
+  background: var(--primary-color);
+  padding: 5px 40px;
+  transform: rotate(45deg);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hot-offer-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.hot-offer img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+.hot-offer-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.discount-price {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.car-card {
+  background: var(--white-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.car-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.car-info {
+  padding: 1.5rem;
+}
+
+.category-label {
+  background: var(--primary-color);
+  color: var(--white-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.car-info h3 {
+  margin: 0.5rem 0;
+  color: var(--dark-color);
+}
+
+.price {
+  font-size: 1.25rem;
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.buy-btn,
+.learn-more-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.buy-btn {
+  background: var(--primary-color);
+  color: var(--white-color);
+}
+
+.learn-more-btn {
+  background: var(--dark-color);
+  color: var(--white-color);
+}
+
+.buy-btn:hover {
+  background: var(--secondary-color);
+}
+
+.learn-more-btn:hover {
+  background: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hot-offer-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .car-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cars-container {
+    padding: 0 1rem;
+  }
+  
+  .button-group {
+    grid-template-columns: 1fr;
+  }
+}

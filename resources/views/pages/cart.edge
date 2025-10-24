@@ -1,0 +1,29 @@
+@layout('layouts/main')
+
+@section('styles')
+  <link rel="stylesheet" href="/css/cart.css">
+@end
+
+@section('content')
+<div class="cart-container">
+  <h1>Your Cart</h1>
+  <div id="cart-items"></div>
+  
+  <div class="cart-summary">
+    <div class="subtotal">
+      <span>Subtotal:</span>
+      <span id="subtotal">$0</span>
+    </div>
+    <div class="total">
+      <span>Total:</span>
+      <span id="total">$0</span>
+    </div>
+    <a href="/checkout" class="checkout-btn">Proceed to Checkout</a>
+  </div>
+</div>
+
+@end
+
+@section('scripts')
+<script src="/js/cart.js"></script>
+@end

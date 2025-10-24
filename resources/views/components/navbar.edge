@@ -1,0 +1,23 @@
+@if(auth.isLoggedIn)
+  <nav class="bg-gray-800 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex space-x-4">
+        <a href="/" class="hover:text-gray-300">Home</a>
+        <a href="/cars" class="hover:text-gray-300">Cars</a>
+        <a href="/infobuy" class="hover:text-gray-300">Info Buy</a>
+      </div>
+      <form action="/logout" method="POST">
+        <button type="submit" class="hover:text-gray-300">Logout</button>
+      </form>
+    </div>
+  </nav>
+@else
+  <nav class="bg-gray-800 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex space-x-4">
+        <a href="/" class="hover:text-gray-300">Home</a>
+      </div>
+      <a href="/login" class="hover:text-gray-300">Login</a>
+    </div>
+  </nav>
+@endif

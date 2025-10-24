@@ -1,0 +1,92 @@
+@layout('layouts/main')
+
+@section('styles')
+  <link rel="stylesheet" href="/css/checkout.css">
+@end
+
+@section('content')
+<div class="checkout-container">
+  <h1>Checkout</h1>
+  
+  <div class="checkout-grid">
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <div id="order-items"></div>
+      <div class="totals">
+        <div class="subtotal">
+          <span>Subtotal:</span>
+          <span id="subtotal">$0</span>
+        </div>
+        <div class="tax">
+          <span>Tax (10%):</span>
+          <span id="tax">$0</span>
+        </div>
+        <div class="total">
+          <span>Total:</span>
+          <span id="total">$0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout-form">
+      <h2>Billing Information</h2>
+      <form id="payment-form">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="address">Delivery Address</label>
+          <textarea id="address" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Payment Method</label>
+          <div class="payment-methods">
+            <div class="payment-option">
+              <input type="radio" id="credit" name="payment" value="credit" checked>
+              <label for="credit">
+                <span class="radio-custom"></span>
+                Credit Card
+              </label>
+            </div>
+            
+            <div class="payment-option">
+              <input type="radio" id="debit" name="payment" value="debit">
+              <label for="debit">
+                <span class="radio-custom"></span>
+                Debit Card
+              </label>
+            </div>
+            
+            <div class="payment-option">
+              <input type="radio" id="crypto" name="payment" value="crypto">
+              <label for="crypto">
+                <span class="radio-custom"></span>
+                Cryptocurrency
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <button type="submit" class="submit-btn">Place Order</button>
+      </form>
+    </div>
+  </div>
+</div>
+@end
+
+@section('scripts')
+<script src="/js/checkout.js"></script>
+@end
